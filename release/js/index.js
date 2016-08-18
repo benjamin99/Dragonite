@@ -9,8 +9,10 @@ const events = require('./routes/events');
 /* consts */
 const LOG_REQUESTS = true;
 const API_VERSION = 1;
-const APP_HOST = '127.0.0.1';
-const APP_PORT = 3000;
+const APP_PORT = process.env.YOUR_PORT || process.env.PORT || 80;
+const APP_HOST = process.env.YOUR_HOST || '0.0.0.0';
+// const APP_HOST = '127.0.0.1';
+// const APP_PORT = 3000;
 /* setup the default views */
 function* index() {
     this.type = 'json';
