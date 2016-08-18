@@ -5,7 +5,7 @@ import * as koa from 'koa';
 import * as bodyParser from 'koa-bodyparser';
 import * as mount from 'koa-mount';
 import * as Router from 'koa-router';
-import {create} from './routes/events';
+import * as events from './routes/events';
 
 /* consts */
 
@@ -29,26 +29,12 @@ function *requestLogger(next) {
   }
 }
 
-function *createEvents() {
-
-  // get the request info:
-  const body = this.request.body;
-  const event = create(body.title, body.content);
-  yield event.save();
-
-  this.type = 'json';
-  this.status = 201;
-  this.body = {
-    title: event.title,
-    content: event.content
-  };
-}
-
 /* setup the router */
 
 const router = new Router();
 router.get('/', index);
-router.post('/events', createEvents);
+router.get('/events', events.list);
+router.post('/events', events.create);
 
 /* setup the application */
 
