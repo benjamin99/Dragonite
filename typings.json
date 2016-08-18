@@ -1,6 +1,7 @@
 {
   "globalDependencies": {
     "apn": "registry:dt/apn#0.0.0+20160316155526",
+    "bluebird": "registry:dt/bluebird#3.0.0+20160811111256",
     "cookies": "registry:dt/cookies#0.5.1+20160316171810",
     "koa": "registry:dt/koa#2.0.0+20160724024233",
     "koa-bodyparser": "registry:dt/koa-bodyparser#3.0.0+20160414124440",
