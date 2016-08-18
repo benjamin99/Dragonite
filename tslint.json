@@ -1,0 +1,14 @@
+{
+    "extends": ["tslint:recommended"],
+    "rulesDirectory": ["node_modules/tslint-eslint-rules/dist/rules"],
+    "rules": {
+        "quotemark": ["single"],
+        "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
+        "object-literal-sort-keys": false,
+        "no-trailing-whitespace": false,
+        "no-console": [false],
+        "no-var-keyword": true,
+        "no-var-requires": false,
+        "interface-name": [false]
+    }
+}

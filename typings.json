@@ -1,0 +1,11 @@
+{
+  "globalDependencies": {
+    "apn": "registry:dt/apn#0.0.0+20160316155526",
+    "mongoose": "registry:dt/mongoose#4.5.4+20160807120805",
+    "mongoose-promise": "registry:dt/mongoose-promise#4.5.4+20160720003345",
+    "node-4": "registry:dt/node-4#4.0.0+20160801161248"
+  },
+  "dependencies": {
+    "mongodb": "registry:npm/mongodb#2.1.0+20160721204323"
+  }
+}
