@@ -12,6 +12,14 @@ const eventSchema = new mongoose.Schema({
   confirms: { type: Number, default: 0 }
 });
 
+eventSchema.virtual('end').get(function () {
+  return this.created.getTime() + this.duration + deltaTimeWithConforms(this.confirms);
+});
+
+function deltaTimeWithConforms(confirms: number) {
+  return Math.round(Math.min(confirms, 100 * Math.exp(-0.1 * confirms)));
+}
+
 export interface IEvent {
   title: string;
   content?: string;
@@ -21,6 +29,7 @@ export interface IEvent {
   created: Date;
   duration: number;
   confirms: number;
+  end: number;
 }
 
 export interface EventDocument extends IEvent, Mongoose.Document {};

@@ -1,11 +1,12 @@
 import * as _ from 'lodash';
 import {EventDocument, Event} from '../models/Events';
 
-export function normalizedEventInfo(e: EventDocument) {
+function normalizedEventInfo(e: EventDocument) {
   return {
     id: e._id,
     created: e.created.getTime(),
     duration: e.duration,
+    end: e.end,
     title: e.title,
     imageUrl: e.image_url,
     content: e.content,
@@ -54,7 +55,7 @@ export function *show() {
 
 export function *makeConfirm() {
   const event = this.state.event;
-  event.confirmed = event.confirmed + 1;
+  event.confirms = event.confirms + 1;
   yield event.save();
   this.type = 'json';
   this.status = 200;

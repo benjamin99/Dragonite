@@ -6,6 +6,7 @@ function normalizedEventInfo(e) {
         id: e._id,
         created: e.created.getTime(),
         duration: e.duration,
+        end: e.end,
         title: e.title,
         imageUrl: e.image_url,
         content: e.content,
@@ -14,7 +15,6 @@ function normalizedEventInfo(e) {
         confirms: e.confirms
     };
 }
-exports.normalizedEventInfo = normalizedEventInfo;
 function* create() {
     const body = this.request.body;
     const event = new Events_1.Event({
@@ -52,7 +52,7 @@ function* show() {
 exports.show = show;
 function* makeConfirm() {
     const event = this.state.event;
-    event.confirmed = event.confirmed + 1;
+    event.confirms = event.confirms + 1;
     yield event.save();
     this.type = 'json';
     this.status = 200;

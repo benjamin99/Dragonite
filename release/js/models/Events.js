@@ -11,5 +11,11 @@ const eventSchema = new mongoose_1.mongoose.Schema({
     duration: { type: Number, default: 300000 },
     confirms: { type: Number, default: 0 }
 });
+eventSchema.virtual('end').get(function () {
+    return this.created.getTime() + this.duration + deltaTimeWithConforms(this.confirms);
+});
+function deltaTimeWithConforms(confirms) {
+    return Math.round(Math.min(confirms, 100 * Math.exp(-0.1 * confirms)));
+}
 ;
 exports.Event = Mongoose.model('Event', eventSchema);
