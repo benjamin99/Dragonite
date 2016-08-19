@@ -33,6 +33,7 @@ router.get('/events', events.list);
 router.get('/events/:id', getEventById_1.getEventById(), events.show);
 router.post('/events', events.create);
 router.post('/events/:id/confirms', getEventById_1.getEventById(), events.makeConfirm);
+router.options('/events', events.options);
 // devices
 router.get('/devices', devices.list);
 router.get('/devices/:id', getDeviceById_1.getDeviceById(), devices.show);

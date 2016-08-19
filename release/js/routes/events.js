@@ -95,3 +95,12 @@ function* makeConfirm() {
 }
 exports.makeConfirm = makeConfirm;
 ;
+function* options() {
+    const vlsOrigin = this.request.headers.ORIGIN;
+    this.headers['Access-Control-Allow-Origin'] = vlsOrigin;
+    this.headers['Access-Control-Allow-Methods'] = 'POST';
+    this.headers['Access-Control-Allow-Headers'] = 'accept, content-type';
+    this.headers['Access-Control-Max-Age'] = '1728000';
+}
+exports.options = options;
+;
