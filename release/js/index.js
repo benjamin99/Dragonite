@@ -6,7 +6,9 @@ const bodyParser = require('koa-bodyparser');
 const mount = require('koa-mount');
 const Router = require('koa-router');
 const events = require('./routes/events');
+const devices = require('./routes/devices');
 const config_1 = require('./config');
+const getDeviceById_1 = require('./middlewares/getDeviceById');
 /* consts */
 const LOG_REQUESTS = config_1.config.log;
 /* setup the default views */
@@ -24,8 +26,13 @@ function* requestLogger(next) {
 /* setup the router */
 const router = new Router();
 router.get('/', index);
+// events
 router.get('/events', events.list);
 router.post('/events', events.create);
+// devices
+router.get('/devices', devices.list);
+router.get('/devices/:deviceId', getDeviceById_1.getDeviceById(), devices.show);
+router.post('/devices', devices.create);
 /* setup the application */
 const app = new koa();
 app.use(requestLogger);
