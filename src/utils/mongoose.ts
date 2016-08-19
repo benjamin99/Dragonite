@@ -1,7 +1,12 @@
 import * as _mongoose from 'mongoose';
 import * as Promise from 'bluebird';
+import {config} from '../config';
 
-_mongoose.connect('mongodb://localhost/dragonite');
+const MONGODB_URI = config.mongodb;
+
+console.log('conntect mongodb: ' + MONGODB_URI);
+
+_mongoose.connect(MONGODB_URI);
 _mongoose.Promise = Promise;
 const database = _mongoose.connection;
 

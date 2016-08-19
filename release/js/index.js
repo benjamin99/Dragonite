@@ -6,13 +6,9 @@ const bodyParser = require('koa-bodyparser');
 const mount = require('koa-mount');
 const Router = require('koa-router');
 const events = require('./routes/events');
+const config_1 = require('./config');
 /* consts */
-const LOG_REQUESTS = true;
-const API_VERSION = 1;
-const APP_PORT = process.env.YOUR_PORT || process.env.PORT || 80;
-const APP_HOST = process.env.YOUR_HOST || '0.0.0.0';
-// const APP_HOST = '127.0.0.1';
-// const APP_PORT = 3000;
+const LOG_REQUESTS = config_1.config.log;
 /* setup the default views */
 function* index() {
     this.type = 'json';
@@ -34,10 +30,10 @@ router.post('/events', events.create);
 const app = new koa();
 app.use(requestLogger);
 app.use(bodyParser());
-app.use(mount(`/v${API_VERSION}`, router.routes()));
+app.use(mount(`/v${config_1.config.version}`, router.routes()));
 app.on('error', function (error, context) {
     console.error('server error: ', error, context);
 });
-http.createServer(app.callback()).listen(APP_PORT, APP_HOST, () => {
-    console.log(`running on ${APP_HOST}:${APP_PORT}`);
+http.createServer(app.callback()).listen(config_1.config.port, config_1.config.host, () => {
+    console.log(`running on ${config_1.config.host}:${config_1.config.port}`);
 });

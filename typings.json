@@ -7,6 +7,7 @@
     "koa-bodyparser": "registry:dt/koa-bodyparser#3.0.0+20160414124440",
     "koa-mount": "registry:dt/koa-mount#2.0.0+20160711132230",
     "koa-router": "registry:dt/koa-router#7.0.0+20160812160355",
+    "lodash": "registry:dt/lodash#4.14.0+20160817155621",
     "mongoose": "registry:dt/mongoose#4.5.4+20160807120805",
     "mongoose-promise": "registry:dt/mongoose-promise#4.5.4+20160720003345",
     "node-4": "registry:dt/node-4#4.0.0+20160801161248"
