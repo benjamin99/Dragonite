@@ -26,9 +26,7 @@ function* create() {
     const event = new Events_1.Event({
         title: body.title,
         content: body.content,
-        duration: body.duration,
-        latitude: body.latitude,
-        longitude: body.longitude,
+        location: [body.longitude, body.latitude],
         image_url: body.imageUrl
     });
     yield event.save();

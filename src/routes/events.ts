@@ -30,9 +30,7 @@ export function *create(): any {
   const event = new Event({
     title: body.title, 
     content: body.content,
-    duration: body.duration,
-    latitude: body.latitude,
-    longitude: body.longitude,
+    location: [body.longitude, body.latitude],
     image_url: body.imageUrl
   });
 
@@ -57,7 +55,7 @@ export function *list(): any {
 
   let events = yield Event.find({}).limit(100).exec();
   if (!form.all) {
-    events = _.filter(events, (e: EventDocument) => { return e.end < Date.now(); });
+    events = _.filter(events, (e: EventDocument) => { return e.end > Date.now(); });
   }
 
   this.type = 'json';
