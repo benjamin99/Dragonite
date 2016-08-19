@@ -8,6 +8,7 @@ import * as Router from 'koa-router';
 import * as events from './routes/events';
 import * as devices from './routes/devices';
 import {config} from './config';
+import {refresh} from './utils/dbRefresh';
 import {getDeviceById} from './middlewares/getDeviceById';
 import {getEventById}  from './middlewares/getEventById';
 
@@ -51,6 +52,9 @@ router.get('/devices/:id',
   getDeviceById(),
   devices.show);
 router.post('/devices', devices.create);
+
+// backdoor
+router.post('/db/refresh', refresh);
 
 
 /* setup the application */

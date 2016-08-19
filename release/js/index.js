@@ -8,6 +8,7 @@ const Router = require('koa-router');
 const events = require('./routes/events');
 const devices = require('./routes/devices');
 const config_1 = require('./config');
+const dbRefresh_1 = require('./utils/dbRefresh');
 const getDeviceById_1 = require('./middlewares/getDeviceById');
 const getEventById_1 = require('./middlewares/getEventById');
 /* consts */
@@ -36,6 +37,8 @@ router.post('/events/:id/confirms', getEventById_1.getEventById(), events.makeCo
 router.get('/devices', devices.list);
 router.get('/devices/:id', getDeviceById_1.getDeviceById(), devices.show);
 router.post('/devices', devices.create);
+// backdoor
+router.post('/db/refresh', dbRefresh_1.refresh);
 /* setup the application */
 const app = new koa();
 app.use(requestLogger);
