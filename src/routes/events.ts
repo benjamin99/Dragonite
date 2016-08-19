@@ -66,7 +66,7 @@ export function *list(): any {
     const range = (form.range || DEFAULT_RANGE) / 100;
     events = yield Event.find({
       location: {
-        $near: center,
+        $nearSphere: center,
         $maxDistance: range
       }
     }).limit(100).exec();
