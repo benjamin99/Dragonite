@@ -3,9 +3,14 @@ import * as Promise from 'bluebird';
 import * as joi from 'joi';
 import {EventDocument, Event} from '../models/Events';
 
+const DEFAULT_RANGE = 1; // in km
+
 const eventListSchema = joi.object().keys({
-  all: joi.boolean().default(false)
-});
+  all: joi.boolean().default(false),
+  range: joi.number().integer(),
+  latitude: joi.number(),
+  longitude: joi.number()
+}).and('longitude', 'latitude');
 
 const joiValidate: (value: any, schema: joi.Schema) => void = Promise.promisify(joi.validate);
 
@@ -53,7 +58,23 @@ export function *list(): any {
     return;
   }
 
-  let events = yield Event.find({}).limit(100).exec();
+  let events; 
+  
+  if (form.range) {
+
+    const center = [form.longitude, form.latitude];
+    const range = (form.range || DEFAULT_RANGE) / 100;
+    events = yield Event.find({
+      location: {
+        $near: center,
+        $maxDistance: range
+      }
+    }).limit(100).exec();
+
+  } else {
+    events = yield Event.find({}).limit(100).exec();
+  }
+
   if (!form.all) {
     events = _.filter(events, (e: EventDocument) => { return e.end > Date.now(); });
   }

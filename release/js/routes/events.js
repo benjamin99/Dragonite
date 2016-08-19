@@ -3,9 +3,13 @@ const _ = require('lodash');
 const Promise = require('bluebird');
 const joi = require('joi');
 const Events_1 = require('../models/Events');
+const DEFAULT_RANGE = 1; // in km
 const eventListSchema = joi.object().keys({
-    all: joi.boolean().default(false)
-});
+    all: joi.boolean().default(false),
+    range: joi.number().integer(),
+    latitude: joi.number(),
+    longitude: joi.number()
+}).and('longitude', 'latitude');
 const joiValidate = Promise.promisify(joi.validate);
 function normalizedEventInfo(e) {
     return {
@@ -47,7 +51,20 @@ function* list() {
         this.body = error;
         return;
     }
-    let events = yield Events_1.Event.find({}).limit(100).exec();
+    let events;
+    if (form.range) {
+        const center = [form.longitude, form.latitude];
+        const range = (form.range || DEFAULT_RANGE) / 100;
+        events = yield Events_1.Event.find({
+            location: {
+                $near: center,
+                $maxDistance: range
+            }
+        }).limit(100).exec();
+    }
+    else {
+        events = yield Events_1.Event.find({}).limit(100).exec();
+    }
     if (!form.all) {
         events = _.filter(events, (e) => { return e.end > Date.now(); });
     }
