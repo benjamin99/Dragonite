@@ -9,6 +9,7 @@ import * as events from './routes/events';
 import * as devices from './routes/devices';
 import {config} from './config';
 import {getDeviceById} from './middlewares/getDeviceById';
+import {getEventById}  from './middlewares/getEventById';
 
 /* consts */
 
@@ -36,11 +37,14 @@ router.get('/', index);
 
 // events
 router.get('/events', events.list);
+router.get('/events/:id',
+  getEventById(),
+  events.show);
 router.post('/events', events.create);
 
 // devices
 router.get('/devices', devices.list);
-router.get('/devices/:deviceId',
+router.get('/devices/:id',
   getDeviceById(),
   devices.show);
 router.post('/devices', devices.create);

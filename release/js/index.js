@@ -9,6 +9,7 @@ const events = require('./routes/events');
 const devices = require('./routes/devices');
 const config_1 = require('./config');
 const getDeviceById_1 = require('./middlewares/getDeviceById');
+const getEventById_1 = require('./middlewares/getEventById');
 /* consts */
 const LOG_REQUESTS = config_1.config.log;
 /* setup the default views */
@@ -28,10 +29,11 @@ const router = new Router();
 router.get('/', index);
 // events
 router.get('/events', events.list);
+router.get('/events/:id', getEventById_1.getEventById(), events.show);
 router.post('/events', events.create);
 // devices
 router.get('/devices', devices.list);
-router.get('/devices/:deviceId', getDeviceById_1.getDeviceById(), devices.show);
+router.get('/devices/:id', getDeviceById_1.getDeviceById(), devices.show);
 router.post('/devices', devices.create);
 /* setup the application */
 const app = new koa();

@@ -7,7 +7,8 @@ const eventSchema = new mongoose_1.mongoose.Schema({
     image_url: String,
     latitude: { type: Number, required: true },
     longitude: { type: Number, required: true },
-    created: { type: Date, dedault: Date.now }
+    created: { type: Date, default: Date.now },
+    confirmed: { type: Number, default: 0 }
 });
 ;
 exports.Event = Mongoose.model('Event', eventSchema);

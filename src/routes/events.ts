@@ -4,15 +4,15 @@ import {EventDocument, Event} from '../models/Events';
 function normalizedEventInfo(e: EventDocument) {
   return {
     id: e._id,
-    created: e.created,
+    created: e.created.getTime(),
     title: e.title,
     imageUrl: e.image_url,
     content: e.content,
     latitude: e.latitude,
-    longitude: e.longitude
+    longitude: e.longitude,
+    confirmed: e.confirmed
   };
 }
-
 
 export function *create(): any {
 
@@ -34,7 +34,7 @@ export function *create(): any {
 
 export function *list(): any {
 
-  const events: [any] = yield Event.find({}).limit(100).lean().exec();
+  const events: [any] = yield Event.find({}).limit(100).exec();
   this.type = 'json';
   this.status = 200;
   this.body = {
@@ -42,3 +42,10 @@ export function *list(): any {
     count: events.length
   };
 };
+
+export function *show() {
+  const event = this.state.event;
+  this.type = 'json';
+  this.status = 200;
+  this.body  = normalizedEventInfo(event);
+}

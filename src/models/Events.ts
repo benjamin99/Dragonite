@@ -7,7 +7,8 @@ const eventSchema = new mongoose.Schema({
   image_url: String,
   latitude: { type: Number, required: true },
   longitude: { type: Number, required: true },
-  created: { type: Date, dedault: Date.now }
+  created: { type: Date, default: Date.now },
+  confirmed: { type: Number, default: 0 }
 });
 
 export interface IEvent {
@@ -16,7 +17,8 @@ export interface IEvent {
   image_url?: string;
   latitude: number;
   longitude: number;
-  created: number;
+  created: Date;
+  confirmed: number;
 }
 
 export interface EventDocument extends IEvent, Mongoose.Document {};

@@ -24,7 +24,7 @@ function* create() {
 exports.create = create;
 ;
 function* list() {
-    const devices = yield Devices_1.Device.find({}).limit(100).lean().exec();
+    const devices = yield Devices_1.Device.find({}).limit(100).exec();
     this.type = 'json';
     this.status = 200;
     this.body = {

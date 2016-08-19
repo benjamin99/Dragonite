@@ -1,12 +1,12 @@
 import {Device} from '../models/Devices';
-import * as mongoose from 'mongoose';
 
 export function getDeviceById(options?: any) {
+
   return function*(next): any {
-    const deviceId = this.params.deviceId;
+    const deviceId = this.params.id;
     let device = undefined;
     try {
-      device = this.state.device = yield Device.findOne({ '_id': deviceId });
+      device = this.state.device = yield Device.findOne({ _id: deviceId });
     } catch (error) {
       this.status = 400;
       this.type = 'json';

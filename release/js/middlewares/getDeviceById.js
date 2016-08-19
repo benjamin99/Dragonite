@@ -2,10 +2,10 @@
 const Devices_1 = require('../models/Devices');
 function getDeviceById(options) {
     return function* (next) {
-        const deviceId = this.params.deviceId;
+        const deviceId = this.params.id;
         let device = undefined;
         try {
-            device = this.state.device = yield Devices_1.Device.findOne({ '_id': deviceId });
+            device = this.state.device = yield Devices_1.Device.findOne({ _id: deviceId });
         }
         catch (error) {
             this.status = 400;

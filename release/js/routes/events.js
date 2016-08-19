@@ -4,12 +4,13 @@ const Events_1 = require('../models/Events');
 function normalizedEventInfo(e) {
     return {
         id: e._id,
-        created: e.created,
+        created: e.created.getTime(),
         title: e.title,
         imageUrl: e.image_url,
         content: e.content,
         latitude: e.latitude,
-        longitude: e.longitude
+        longitude: e.longitude,
+        confirmed: e.confirmed
     };
 }
 function* create() {
@@ -29,7 +30,7 @@ function* create() {
 exports.create = create;
 ;
 function* list() {
-    const events = yield Events_1.Event.find({}).limit(100).lean().exec();
+    const events = yield Events_1.Event.find({}).limit(100).exec();
     this.type = 'json';
     this.status = 200;
     this.body = {
@@ -39,3 +40,10 @@ function* list() {
 }
 exports.list = list;
 ;
+function* show() {
+    const event = this.state.event;
+    this.type = 'json';
+    this.status = 200;
+    this.body = normalizedEventInfo(event);
+}
+exports.show = show;
