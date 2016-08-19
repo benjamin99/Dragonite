@@ -41,6 +41,9 @@ router.get('/events/:id',
   getEventById(),
   events.show);
 router.post('/events', events.create);
+router.post('/events/:id/confirms',
+  getEventById(),
+  events.makeConfirm);
 
 // devices
 router.get('/devices', devices.list);

@@ -5,19 +5,22 @@ function normalizedEventInfo(e) {
     return {
         id: e._id,
         created: e.created.getTime(),
+        duration: e.duration,
         title: e.title,
         imageUrl: e.image_url,
         content: e.content,
         latitude: e.latitude,
         longitude: e.longitude,
-        confirmed: e.confirmed
+        confirms: e.confirms
     };
 }
+exports.normalizedEventInfo = normalizedEventInfo;
 function* create() {
     const body = this.request.body;
     const event = new Events_1.Event({
         title: body.title,
         content: body.content,
+        duration: body.duration,
         latitude: body.latitude,
         longitude: body.longitude,
         image_url: body.imageUrl
@@ -47,3 +50,13 @@ function* show() {
     this.body = normalizedEventInfo(event);
 }
 exports.show = show;
+function* makeConfirm() {
+    const event = this.state.event;
+    event.confirmed = event.confirmed + 1;
+    yield event.save();
+    this.type = 'json';
+    this.status = 200;
+    this.body = normalizedEventInfo(event);
+}
+exports.makeConfirm = makeConfirm;
+;

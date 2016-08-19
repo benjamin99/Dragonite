@@ -8,7 +8,8 @@ const eventSchema = new mongoose.Schema({
   latitude: { type: Number, required: true },
   longitude: { type: Number, required: true },
   created: { type: Date, default: Date.now },
-  confirmed: { type: Number, default: 0 }
+  duration: { type: Number, default: 300000 },
+  confirms: { type: Number, default: 0 }
 });
 
 export interface IEvent {
@@ -18,9 +19,9 @@ export interface IEvent {
   latitude: number;
   longitude: number;
   created: Date;
-  confirmed: number;
+  duration: number;
+  confirms: number;
 }
 
 export interface EventDocument extends IEvent, Mongoose.Document {};
 export let Event: Mongoose.Model<EventDocument> = Mongoose.model<EventDocument>('Event', eventSchema);
-

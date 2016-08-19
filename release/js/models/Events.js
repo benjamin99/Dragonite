@@ -8,7 +8,8 @@ const eventSchema = new mongoose_1.mongoose.Schema({
     latitude: { type: Number, required: true },
     longitude: { type: Number, required: true },
     created: { type: Date, default: Date.now },
-    confirmed: { type: Number, default: 0 }
+    duration: { type: Number, default: 300000 },
+    confirms: { type: Number, default: 0 }
 });
 ;
 exports.Event = Mongoose.model('Event', eventSchema);

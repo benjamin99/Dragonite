@@ -1,16 +1,17 @@
 import * as _ from 'lodash';
 import {EventDocument, Event} from '../models/Events';
 
-function normalizedEventInfo(e: EventDocument) {
+export function normalizedEventInfo(e: EventDocument) {
   return {
     id: e._id,
     created: e.created.getTime(),
+    duration: e.duration,
     title: e.title,
     imageUrl: e.image_url,
     content: e.content,
     latitude: e.latitude,
     longitude: e.longitude,
-    confirmed: e.confirmed
+    confirms: e.confirms
   };
 }
 
@@ -20,6 +21,7 @@ export function *create(): any {
   const event = new Event({
     title: body.title, 
     content: body.content,
+    duration: body.duration,
     latitude: body.latitude,
     longitude: body.longitude,
     image_url: body.imageUrl
@@ -49,3 +51,12 @@ export function *show() {
   this.status = 200;
   this.body  = normalizedEventInfo(event);
 }
+
+export function *makeConfirm() {
+  const event = this.state.event;
+  event.confirmed = event.confirmed + 1;
+  yield event.save();
+  this.type = 'json';
+  this.status = 200;
+  this.body  = normalizedEventInfo(event);
+};
