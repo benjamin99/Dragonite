@@ -1,21 +1,35 @@
-import {Event} from '../models/Events';
+import * as _ from 'lodash';
+import {EventDocument, Event} from '../models/Events';
+
+function normalizedEventInfo(e: EventDocument) {
+  return {
+    id: e._id,
+    created: e.created,
+    title: e.title,
+    imageUrl: e.image_url,
+    content: e.content,
+    latitude: e.latitude,
+    longitude: e.longitude
+  };
+}
+
 
 export function *create(): any {
 
   const body = this.request.body;
   const event = new Event({
     title: body.title, 
-    content: body.content
+    content: body.content,
+    latitude: body.latitude,
+    longitude: body.longitude,
+    image_url: body.imageUrl
   });
 
   yield event.save();
 
   this.type = 'json';
   this.status = 201;
-  this.body = {
-    title: event.title,
-    content: event.content
-  };
+  this.body = normalizedEventInfo(event);
 };
 
 export function *list(): any {
@@ -24,7 +38,7 @@ export function *list(): any {
   this.type = 'json';
   this.status = 200;
   this.body = {
-    events: events,
+    events: _.map(events, normalizedEventInfo),
     count: events.length
   };
 };

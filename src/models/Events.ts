@@ -3,12 +3,20 @@ import * as Mongoose from 'mongoose';
 
 const eventSchema = new mongoose.Schema({
   title: String,
-  content: String
+  content: String,
+  image_url: String,
+  latitude: { type: Number, required: true },
+  longitude: { type: Number, required: true },
+  created: { type: Date, dedault: Date.now }
 });
 
 export interface IEvent {
   title: string;
   content?: string;
+  image_url?: string;
+  latitude: number;
+  longitude: number;
+  created: number;
 }
 
 export interface EventDocument extends IEvent, Mongoose.Document {};
