@@ -36,7 +36,8 @@ export function *create(): any {
     title: body.title, 
     content: body.content,
     location: [body.longitude, body.latitude],
-    image_url: body.imageUrl
+    image_url: body.imageUrl,
+    duration: body.duration
   });
 
   yield event.save();
