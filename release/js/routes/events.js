@@ -6,7 +6,7 @@ const Events_1 = require('../models/Events');
 const DEFAULT_RANGE = 1; // in km
 const eventListSchema = joi.object().keys({
     all: joi.boolean().default(false),
-    range: joi.number().integer(),
+    range: joi.number(),
     latitude: joi.number(),
     longitude: joi.number()
 }).and('longitude', 'latitude');
@@ -14,7 +14,7 @@ const joiValidate = Promise.promisify(joi.validate);
 function normalizedEventInfo(e) {
     return {
         id: e._id,
-        created: e.created.getTime(),
+        created: e.created.getTime() / 1000,
         duration: e.duration,
         end: e.end,
         title: e.title,

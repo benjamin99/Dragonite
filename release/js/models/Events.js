@@ -11,11 +11,11 @@ const eventSchema = new mongoose_1.mongoose.Schema({
         required: true
     },
     created: { type: Date, default: Date.now },
-    duration: { type: Number, default: 300000 },
+    duration: { type: Number, default: 300 },
     confirms: { type: Number, default: 0 }
 });
 eventSchema.virtual('end').get(function () {
-    return this.created.getTime() + this.duration + deltaTimeWithConforms(this.confirms);
+    return this.created.getTime() / 1000 + this.duration + deltaTimeWithConforms(this.confirms);
 });
 eventSchema.virtual('longitude').get(function () {
     return this.location[0];
