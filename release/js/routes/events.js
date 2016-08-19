@@ -1,6 +1,12 @@
 "use strict";
 const _ = require('lodash');
+const Promise = require('bluebird');
+const joi = require('joi');
 const Events_1 = require('../models/Events');
+const eventListSchema = joi.object().keys({
+    all: joi.boolean().default(false)
+});
+const joiValidate = Promise.promisify(joi.validate);
 function normalizedEventInfo(e) {
     return {
         id: e._id,
@@ -33,7 +39,20 @@ function* create() {
 exports.create = create;
 ;
 function* list() {
-    const events = yield Events_1.Event.find({}).limit(100).exec();
+    let form = undefined;
+    try {
+        form = yield joiValidate(this.query, eventListSchema);
+    }
+    catch (error) {
+        this.type = 'json';
+        this.status = 400;
+        this.body = error;
+        return;
+    }
+    let events = yield Events_1.Event.find({}).limit(100).exec();
+    if (!form.all) {
+        events = _.filter(events, (e) => { return e.end > Date.now(); });
+    }
     this.type = 'json';
     this.status = 200;
     this.body = {

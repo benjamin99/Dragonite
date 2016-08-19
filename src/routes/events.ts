@@ -1,5 +1,13 @@
 import * as _ from 'lodash';
+import * as Promise from 'bluebird';
+import * as joi from 'joi';
 import {EventDocument, Event} from '../models/Events';
+
+const eventListSchema = joi.object().keys({
+  all: joi.boolean().default(false)
+});
+
+const joiValidate: (value: any, schema: joi.Schema) => void = Promise.promisify(joi.validate);
 
 function normalizedEventInfo(e: EventDocument) {
   return {
@@ -37,7 +45,21 @@ export function *create(): any {
 
 export function *list(): any {
 
-  const events: [any] = yield Event.find({}).limit(100).exec();
+  let form = undefined;
+  try {
+    form = yield joiValidate(this.query, eventListSchema);
+  } catch (error) {
+    this.type = 'json';
+    this.status = 400;
+    this.body = error;
+    return;
+  }
+
+  let events = yield Event.find({}).limit(100).exec();
+  if (!form.all) {
+    events = _.filter(events, (e: EventDocument) => { return e.end < Date.now(); });
+  }
+
   this.type = 'json';
   this.status = 200;
   this.body = {
