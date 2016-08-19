@@ -28,7 +28,7 @@ function* list() {
     this.type = 'json';
     this.status = 200;
     this.body = {
-        devices: _.map(devices, normalizedDeviceInfo),
+        content: _.map(devices, normalizedDeviceInfo),
         count: devices.length
     };
 }

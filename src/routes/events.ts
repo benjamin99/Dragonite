@@ -38,7 +38,7 @@ export function *list(): any {
   this.type = 'json';
   this.status = 200;
   this.body = {
-    events: _.map(events, normalizedEventInfo),
+    content: _.map(events, normalizedEventInfo),
     count: events.length
   };
 };
