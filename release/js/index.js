@@ -1,4 +1,3 @@
-/// <reference path="../typings/index.d.ts" />
 "use strict";
 const http = require('http');
 const koa = require('koa');

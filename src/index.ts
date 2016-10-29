@@ -1,5 +1,3 @@
-/// <reference path="../typings/index.d.ts" />
-
 import * as http from 'http';
 import * as koa from 'koa';
 import * as bodyParser from 'koa-bodyparser';
