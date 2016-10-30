@@ -29,8 +29,7 @@ gulp.task('lint', function() {
 
 var project = ts.createProject('tsconfig.json');
 gulp.task('scripts', function() {
-
-  var results = gulp.src(TS_SOURCE).pipe(ts(project));
+  var results = gulp.src(TS_SOURCE).pipe(project());
   return merge([
     results.dts.pipe(gulp.dest(TS_DEFINITIONS)),
     results.js.pipe(gulp.dest(TS_RESULT_DEST))

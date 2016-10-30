@@ -7,7 +7,7 @@ const MONGODB_URI = config.mongodb;
 console.log('conntect mongodb: ' + MONGODB_URI);
 
 _mongoose.connect(MONGODB_URI);
-_mongoose.Promise = Promise;
+(<any> _mongoose).Promise = Promise;
 const database = _mongoose.connection;
 
 database.on('error', console.error.bind(console, 'connection error:'));
