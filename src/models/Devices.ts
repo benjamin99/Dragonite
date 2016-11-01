@@ -1,4 +1,4 @@
-import {mongoose} from '../utils/mongoose';
+import { mongoose } from '../utils/mongoose';
 import * as Mongoose from 'mongoose';
 
 const deviceSchema = new mongoose.Schema({
@@ -14,4 +14,4 @@ export interface IDevice {
 }
 
 export interface DeviceDocument extends IDevice, Mongoose.Document {};
-export let Device: Mongoose.Model<DeviceDocument> = Mongoose.model<DeviceDocument>('Device', deviceSchema);
+export const Device: Mongoose.Model<DeviceDocument> = Mongoose.model<DeviceDocument>('Device', deviceSchema);

@@ -1,26 +1,15 @@
 "use strict";
 const Devices_1 = require('../models/Devices');
+const error_1 = require('../common/error');
 function getDeviceById(options) {
     return function* (next) {
         const deviceId = this.params.id;
-        let device = undefined;
-        try {
-            device = this.state.device = yield Devices_1.Device.findOne({ _id: deviceId });
-        }
-        catch (error) {
-            this.status = 400;
-            this.type = 'json';
-            this.body = {
-                error: 1001,
-                message: error.message || 'unknown error'
-            };
-            return;
-        }
+        const device = this.state.device = yield Devices_1.Device.findOne({ _id: deviceId });
         if (!device) {
             this.status = 404;
             this.type = 'json';
             this.body = {
-                error: 1002,
+                error: error_1.ERROR_CODE.deviceNotFound,
                 message: 'cannot found the device with the requested deviceId'
             };
             return;

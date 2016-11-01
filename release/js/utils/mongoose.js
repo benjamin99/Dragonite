@@ -12,3 +12,4 @@ database.once('open', () => {
     console.log('connected to the database');
 });
 exports.mongoose = _mongoose;
+exports.Schema = _mongoose.Schema;

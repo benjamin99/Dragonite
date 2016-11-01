@@ -1,27 +1,17 @@
-import {Device} from '../models/Devices';
+import { Device } from '../models/Devices';
+import { ERROR_CODE } from '../common/error';
 
 export function getDeviceById(options?: any) {
 
   return function*(next): any {
     const deviceId = this.params.id;
-    let device = undefined;
-    try {
-      device = this.state.device = yield Device.findOne({ _id: deviceId });
-    } catch (error) {
-      this.status = 400;
-      this.type = 'json';
-      this.body = {
-        error: 1001,
-        message: error.message || 'unknown error'
-      };
-      return;
-    }
+    const device = this.state.device = yield Device.findOne({ _id: deviceId });
 
     if (!device) {
       this.status = 404;
       this.type = 'json';
       this.body = {
-        error: 1002,
+        error: ERROR_CODE.deviceNotFound,
         message: 'cannot found the device with the requested deviceId'
       };
       return;

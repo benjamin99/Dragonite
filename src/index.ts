@@ -5,10 +5,15 @@ import * as mount from 'koa-mount';
 import * as Router from 'koa-router';
 import * as events from './routes/events';
 import * as devices from './routes/devices';
-import {config} from './config';
-import {refresh} from './utils/dbRefresh';
-import {getDeviceById} from './middlewares/getDeviceById';
-import {getEventById}  from './middlewares/getEventById';
+import * as members from './routes/members';
+import * as reactions from './routes/reactions';
+import * as replies from './routes/replies';
+import { config } from './config';
+import { refresh } from './utils/dbRefresh';
+import { getDeviceById } from './middlewares/getDeviceById';
+import { getEventById }  from './middlewares/getEventById';
+import { getMemberById } from './middlewares/getMemberById';
+import { checkTokenMemberId } from './middlewares/checkTokenMemberId';
 
 /* consts */
 
@@ -34,17 +39,65 @@ function *requestLogger(next) {
 const router = new Router();
 router.get('/', index);
 
+// devices
+router.get('/me/decvices',
+  checkTokenMemberId(),
+  devices.list);
+
+router.get('/devices/:token',
+  checkTokenMemberId(),
+  devices.show);
+
+router.post('/devices',
+  checkTokenMemberId(),
+  devices.create);
+
+router.delete('/devices/:token',
+  checkTokenMemberId(),
+  devices.destroy);
+
+// members
+router.get('/members',
+  members.list);
+
+router.get('/members/:id',
+  getMemberById(),
+  members.show);
+
+router.put('/members/:id',
+  getMemberById(),
+  members.update);
+
 // events
 router.get('/events', events.list);
 router.get('/events/:id',
   getEventById(),
   events.show);
+
 router.post('/events', events.create);
 router.post('/events/:id/confirms',
   getEventById(),
   events.makeConfirm);
 
-router.options('/events', events.options);
+// reactions
+router.get('/events/:id/reactions',
+  getEventById(),
+  reactions.list);
+
+router.post('/events/:id/reactions',
+  getMemberById(),
+  getEventById(),
+  reactions.create);
+
+// replies
+router.get('/events/:id/replies',
+  getEventById(),
+  replies.list);
+
+router.post('/events/:id/replies',
+  getEventById(),
+  getMemberById(),
+  replies.create);
 
 // devices
 router.get('/devices', devices.list);
@@ -55,7 +108,6 @@ router.post('/devices', devices.create);
 
 // backdoor
 router.post('/db/refresh', refresh);
-
 
 /* setup the application */
 

@@ -42,3 +42,7 @@ export function *show(): any {
   this.status = 200;
   this.body  = normalizedDeviceInfo(device);
 };
+
+export function *destroy(): any {
+  // TODO: ...
+}

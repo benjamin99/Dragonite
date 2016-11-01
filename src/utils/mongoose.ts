@@ -16,3 +16,4 @@ database.once('open', () => {
 });
 
 export const mongoose = _mongoose;
+export const Schema = _mongoose.Schema;

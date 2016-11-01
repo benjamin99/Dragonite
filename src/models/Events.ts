@@ -1,7 +1,7 @@
-import {mongoose} from '../utils/mongoose';
+import { Schema } from '../utils/mongoose';
 import * as Mongoose from 'mongoose';
 
-const eventSchema = new mongoose.Schema({
+const eventSchema = new Schema({
   title: String,
   content: String,
   image_url: String,
@@ -12,7 +12,10 @@ const eventSchema = new mongoose.Schema({
   },
   created: { type: Date, default: Date.now },
   duration: { type: Number, default: 300 },
-  confirms: { type: Number, default: 0 }
+  confirms: { type: Number, default: 0 },
+  reactions: [
+    {type: Schema.Types.ObjectId, ref: 'Reactions'}
+  ]
 });
 
 eventSchema.virtual('end').get(function() {
@@ -44,4 +47,4 @@ export interface IEvent {
 }
 
 export interface EventDocument extends IEvent, Mongoose.Document {};
-export let Event: Mongoose.Model<EventDocument> = Mongoose.model<EventDocument>('Event', eventSchema);
+export const Event: Mongoose.Model<EventDocument> = Mongoose.model<EventDocument>('Event', eventSchema);

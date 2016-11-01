@@ -42,3 +42,7 @@ function* show() {
 }
 exports.show = show;
 ;
+function* destroy() {
+    // TODO: ...
+}
+exports.destroy = destroy;

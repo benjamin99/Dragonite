@@ -6,10 +6,15 @@ const mount = require('koa-mount');
 const Router = require('koa-router');
 const events = require('./routes/events');
 const devices = require('./routes/devices');
+const members = require('./routes/members');
+const reactions = require('./routes/reactions');
+const replies = require('./routes/replies');
 const config_1 = require('./config');
 const dbRefresh_1 = require('./utils/dbRefresh');
 const getDeviceById_1 = require('./middlewares/getDeviceById');
 const getEventById_1 = require('./middlewares/getEventById');
+const getMemberById_1 = require('./middlewares/getMemberById');
+const checkTokenMemberId_1 = require('./middlewares/checkTokenMemberId');
 /* consts */
 const LOG_REQUESTS = config_1.config.log;
 /* setup the default views */
@@ -27,12 +32,26 @@ function* requestLogger(next) {
 /* setup the router */
 const router = new Router();
 router.get('/', index);
+// devices
+router.get('/me/decvices', checkTokenMemberId_1.checkTokenMemberId(), devices.list);
+router.get('/devices/:token', checkTokenMemberId_1.checkTokenMemberId(), devices.show);
+router.post('/devices', checkTokenMemberId_1.checkTokenMemberId(), devices.create);
+router.delete('/devices/:token', checkTokenMemberId_1.checkTokenMemberId(), devices.destroy);
+// members
+router.get('/members', members.list);
+router.get('/members/:id', getMemberById_1.getMemberById(), members.show);
+router.put('/members/:id', getMemberById_1.getMemberById(), members.update);
 // events
 router.get('/events', events.list);
 router.get('/events/:id', getEventById_1.getEventById(), events.show);
 router.post('/events', events.create);
 router.post('/events/:id/confirms', getEventById_1.getEventById(), events.makeConfirm);
-router.options('/events', events.options);
+// reactions
+router.get('/events/:id/reactions', getEventById_1.getEventById(), reactions.list);
+router.post('/events/:id/reactions', getMemberById_1.getMemberById(), getEventById_1.getEventById(), reactions.create);
+// replies
+router.get('/events/:id/replies', getEventById_1.getEventById(), replies.list);
+router.post('/events/:id/replies', getEventById_1.getEventById(), getMemberById_1.getMemberById(), replies.create);
 // devices
 router.get('/devices', devices.list);
 router.get('/devices/:id', getDeviceById_1.getDeviceById(), devices.show);

@@ -1,28 +1,18 @@
-import {Event} from '../models/Events';
+import { Event } from '../models/Events';
+import { ERROR_CODE } from '../common/error';
 
 export function getEventById(options?: any) {
   
   return function*(next): any {
     const eventId = this.params.id;
-    let event = undefined;
-    try {
-      event = this.state.event = yield Event.findOne({ _id: eventId });
-    } catch (error) {
-      this.status = 400;
-      this.type = 'json';
-      this.body = {
-        error: 2001,
-        message: error.message || 'unknown error'
-      };
-      return;
-    }
+    const event = this.state.event = yield Event.findOne({ _id: eventId });
 
     if (!event) {
       this.status = 404;
       this.type = 'json';
       this.body = {
-        error: 2002,
-        message: 'cannot found the event with the requested deviceId'
+        error: ERROR_CODE.eventNotFound,
+        message: 'cannot found the event with the requested eventId'
       };
       return;
     }

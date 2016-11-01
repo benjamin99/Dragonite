@@ -1,7 +1,7 @@
 "use strict";
 const mongoose_1 = require('../utils/mongoose');
 const Mongoose = require('mongoose');
-const eventSchema = new mongoose_1.mongoose.Schema({
+const eventSchema = new mongoose_1.Schema({
     title: String,
     content: String,
     image_url: String,
@@ -12,7 +12,10 @@ const eventSchema = new mongoose_1.mongoose.Schema({
     },
     created: { type: Date, default: Date.now },
     duration: { type: Number, default: 300 },
-    confirms: { type: Number, default: 0 }
+    confirms: { type: Number, default: 0 },
+    reactions: [
+        { type: mongoose_1.Schema.Types.ObjectId, ref: 'Reactions' }
+    ]
 });
 eventSchema.virtual('end').get(function () {
     return this.created.getTime() / 1000 + this.duration + deltaTimeWithConforms(this.confirms);
