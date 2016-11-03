@@ -111,7 +111,19 @@ router.post('/db/refresh', refresh);
 
 /* setup the application */
 
-const app = new koa();
+const app = module.exports = new koa();
+
+// for health check
+
+app.use(function*(next) {
+  if (this.url !== '/' || this.method !== 'GET') {
+    return yield next;
+  }
+
+  this.status = 200;
+  this.body = 'ok';
+});
+
 app.use(requestLogger);
 app.use(bodyParser());
 app.use(mount(`/v${config.version}`, router.routes()));

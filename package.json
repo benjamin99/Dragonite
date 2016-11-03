@@ -15,6 +15,7 @@
     "@types/mongodb": "^2.1.33",
     "@types/mongoose": "^4.5.39",
     "@types/node": "^6.0.46",
+    "@types/uuid": "^2.0.29",
     "apn": "^1.7.8",
     "bluebird": "^3.4.1",
     "joi": "^9.0.4",
@@ -24,17 +25,26 @@
     "koa-mount": "^1.3.0",
     "koa-router": "^5.4.0",
     "lodash": "^4.15.0",
+    "mocha": "^3.1.2",
     "mongodb": "^2.2.6",
-    "mongoose": "^4.6.5"
+    "mongoose": "^4.6.5",
+    "uuid": "^2.0.3"
   },
   "devDependencies": {
+    "@types/chai": "^3.4.34",
+    "@types/mocha": "^2.2.32",
+    "@types/nock": "^8.0.33",
+    "@types/supertest": "^1.1.31",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
     "co-mocha": "^1.1.3",
     "gulp": "^3.9.1",
     "gulp-dest": "^0.2.3",
     "gulp-tslint": "^6.1.2",
     "gulp-typescript": "^3.1.1",
     "merge2": "^1.0.2",
-    "mocha": "^3.0.2",
+    "nock": "^9.0.2",
+    "supertest": "^2.0.1",
     "tslint": "^3.15.1",
     "tslint-eslint-rules": "^1.3.0",
     "typescript": "^2.0.6"
@@ -44,7 +54,7 @@
   "description": "The backend implementation for the dragonite project",
   "main": "release/js/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=development mocha -r co-mocha release/js/tests/index.js"
   },
   "keywords": [
     "dragonite",

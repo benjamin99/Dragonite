@@ -59,7 +59,15 @@ router.post('/devices', devices.create);
 // backdoor
 router.post('/db/refresh', dbRefresh_1.refresh);
 /* setup the application */
-const app = new koa();
+const app = module.exports = new koa();
+// for health check
+app.use(function* (next) {
+    if (this.url !== '/' || this.method !== 'GET') {
+        return yield next;
+    }
+    this.status = 200;
+    this.body = 'ok';
+});
 app.use(requestLogger);
 app.use(bodyParser());
 app.use(mount(`/v${config_1.config.version}`, router.routes()));
