@@ -10,11 +10,15 @@ const eventSchema = new Schema({
     index: '2d',
     required: true
   },
+  memberId: { type: Schema.Types.ObjectId, ref: 'Members' },
   created: { type: Date, default: Date.now },
   duration: { type: Number, default: 300 },
   confirms: { type: Number, default: 0 },
   reactions: [
     {type: Schema.Types.ObjectId, ref: 'Reactions'}
+  ],
+  replys: [
+    {type: Schema.Types.ObjectId, ref: 'Replies' }
   ]
 });
 
@@ -38,12 +42,15 @@ export interface IEvent {
   title: string;
   content?: string;
   image_url?: string;
+  memberId: string;
   latitude: number;
   longitude: number;
   created: Date;
   duration: number;
   confirms: number;
   end: number;
+  reactions: [string];
+  replies: [string];
 }
 
 export interface EventDocument extends IEvent, Mongoose.Document {};

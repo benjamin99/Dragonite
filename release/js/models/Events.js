@@ -10,11 +10,15 @@ const eventSchema = new mongoose_1.Schema({
         index: '2d',
         required: true
     },
+    memberId: { type: mongoose_1.Schema.Types.ObjectId, ref: 'Members' },
     created: { type: Date, default: Date.now },
     duration: { type: Number, default: 300 },
     confirms: { type: Number, default: 0 },
     reactions: [
         { type: mongoose_1.Schema.Types.ObjectId, ref: 'Reactions' }
+    ],
+    replys: [
+        { type: mongoose_1.Schema.Types.ObjectId, ref: 'Replies' }
     ]
 });
 eventSchema.virtual('end').get(function () {

@@ -14,6 +14,7 @@ import { getDeviceById } from './middlewares/getDeviceById';
 import { getEventById }  from './middlewares/getEventById';
 import { getMemberById } from './middlewares/getMemberById';
 import { checkTokenMemberId } from './middlewares/checkTokenMemberId';
+import * as scope from './common/scope';
 
 /* consts */
 
@@ -55,6 +56,12 @@ router.post('/devices',
 router.delete('/devices/:token',
   checkTokenMemberId(),
   devices.destroy);
+  
+router.get('/devices', devices.list);
+
+router.get('/devices/:id',
+  getDeviceById(),
+  devices.show);
 
 // members
 router.get('/members',
@@ -69,42 +76,51 @@ router.put('/members/:id',
   members.update);
 
 // events
-router.get('/events', events.list);
+router.get('/events', 
+  scope.middleware(scope.eventBasicScope),
+  events.list);
+
 router.get('/events/:id',
+  scope.middleware(scope.eventBasicScope),
   getEventById(),
   events.show);
 
-router.post('/events', events.create);
+router.post('/events', 
+  scope.middleware(scope.eventWriteScope),
+  events.create);
+
 router.post('/events/:id/confirms',
+  scope.middleware(scope.eventWriteScope),
   getEventById(),
   events.makeConfirm);
 
 // reactions
 router.get('/events/:id/reactions',
+  scope.middleware(scope.eventBasicScope),
+  scope.middleware(scope.reactionBasicScope),
   getEventById(),
   reactions.list);
 
 router.post('/events/:id/reactions',
+  scope.middleware(scope.eventWriteScope),
+  scope.middleware(scope.reactionWriteScope),
   getMemberById(),
   getEventById(),
   reactions.create);
 
 // replies
 router.get('/events/:id/replies',
+  scope.middleware(scope.eventBasicScope),
+  scope.middleware(scope.replyBasicScope),
   getEventById(),
   replies.list);
 
 router.post('/events/:id/replies',
+  scope.middleware(scope.eventBasicScope),
+  scope.middleware(scope.replyWriteScope),
   getEventById(),
   getMemberById(),
   replies.create);
-
-// devices
-router.get('/devices', devices.list);
-router.get('/devices/:id',
-  getDeviceById(),
-  devices.show);
-router.post('/devices', devices.create);
 
 // backdoor
 router.post('/db/refresh', refresh);

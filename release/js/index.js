@@ -15,6 +15,7 @@ const getDeviceById_1 = require('./middlewares/getDeviceById');
 const getEventById_1 = require('./middlewares/getEventById');
 const getMemberById_1 = require('./middlewares/getMemberById');
 const checkTokenMemberId_1 = require('./middlewares/checkTokenMemberId');
+const scope = require('./common/scope');
 /* consts */
 const LOG_REQUESTS = config_1.config.log;
 /* setup the default views */
@@ -37,25 +38,23 @@ router.get('/me/decvices', checkTokenMemberId_1.checkTokenMemberId(), devices.li
 router.get('/devices/:token', checkTokenMemberId_1.checkTokenMemberId(), devices.show);
 router.post('/devices', checkTokenMemberId_1.checkTokenMemberId(), devices.create);
 router.delete('/devices/:token', checkTokenMemberId_1.checkTokenMemberId(), devices.destroy);
+router.get('/devices', devices.list);
+router.get('/devices/:id', getDeviceById_1.getDeviceById(), devices.show);
 // members
 router.get('/members', members.list);
 router.get('/members/:id', getMemberById_1.getMemberById(), members.show);
 router.put('/members/:id', getMemberById_1.getMemberById(), members.update);
 // events
-router.get('/events', events.list);
-router.get('/events/:id', getEventById_1.getEventById(), events.show);
-router.post('/events', events.create);
-router.post('/events/:id/confirms', getEventById_1.getEventById(), events.makeConfirm);
+router.get('/events', scope.middleware(scope.eventBasicScope), events.list);
+router.get('/events/:id', scope.middleware(scope.eventBasicScope), getEventById_1.getEventById(), events.show);
+router.post('/events', scope.middleware(scope.eventWriteScope), events.create);
+router.post('/events/:id/confirms', scope.middleware(scope.eventWriteScope), getEventById_1.getEventById(), events.makeConfirm);
 // reactions
-router.get('/events/:id/reactions', getEventById_1.getEventById(), reactions.list);
-router.post('/events/:id/reactions', getMemberById_1.getMemberById(), getEventById_1.getEventById(), reactions.create);
+router.get('/events/:id/reactions', scope.middleware(scope.eventBasicScope), scope.middleware(scope.reactionBasicScope), getEventById_1.getEventById(), reactions.list);
+router.post('/events/:id/reactions', scope.middleware(scope.eventWriteScope), scope.middleware(scope.reactionWriteScope), getMemberById_1.getMemberById(), getEventById_1.getEventById(), reactions.create);
 // replies
-router.get('/events/:id/replies', getEventById_1.getEventById(), replies.list);
-router.post('/events/:id/replies', getEventById_1.getEventById(), getMemberById_1.getMemberById(), replies.create);
-// devices
-router.get('/devices', devices.list);
-router.get('/devices/:id', getDeviceById_1.getDeviceById(), devices.show);
-router.post('/devices', devices.create);
+router.get('/events/:id/replies', scope.middleware(scope.eventBasicScope), scope.middleware(scope.replyBasicScope), getEventById_1.getEventById(), replies.list);
+router.post('/events/:id/replies', scope.middleware(scope.eventBasicScope), scope.middleware(scope.replyWriteScope), getEventById_1.getEventById(), getMemberById_1.getMemberById(), replies.create);
 // backdoor
 router.post('/db/refresh', dbRefresh_1.refresh);
 /* setup the application */
