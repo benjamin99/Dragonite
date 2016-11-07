@@ -13,6 +13,15 @@ export const replyBasicScope = 'reply';
 export const replyWriteScope = 'reply:write';
 export const replyAdminScope = 'reply:admin';
 
+export const memberDefaultScopes = [
+  eventBasicScope, 
+  eventWriteScope, 
+  reactionBasicScope,
+  reactionWriteScope,
+  replyBasicScope,
+  replyWriteScope
+];
+
 /** related methods */
 
 export function check(context: any, scope: string): IBearerTokenErrorData {

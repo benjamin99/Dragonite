@@ -8,13 +8,14 @@ import * as devices from './routes/devices';
 import * as members from './routes/members';
 import * as reactions from './routes/reactions';
 import * as replies from './routes/replies';
+import * as scope from './common/scope';
 import { config } from './config';
 import { refresh } from './utils/dbRefresh';
 import { getDeviceById } from './middlewares/getDeviceById';
 import { getEventById }  from './middlewares/getEventById';
 import { getMemberById } from './middlewares/getMemberById';
 import { checkTokenMemberId } from './middlewares/checkTokenMemberId';
-import * as scope from './common/scope';
+import * as oauth from './oauth';
 
 /* consts */
 
@@ -39,6 +40,10 @@ function *requestLogger(next) {
 
 const router = new Router();
 router.get('/', index);
+
+// oauth:
+router.post('/oauth/token',
+  oauth.createToken());
 
 // devices
 router.get('/me/decvices',
