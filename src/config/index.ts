@@ -7,7 +7,8 @@ export const config = {
     port: process.env.SERVER_PORT || 80,
     host: process.env.SERVER_HOST || '0.0.0.0',
     mongodb: process.env.MONGODB,
-    log: true
+    log: true,
+    useOAuth: process.env.USE_OAUTH || false
 };
 
 try {

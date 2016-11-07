@@ -49,7 +49,7 @@ export function middleware(scope: string) {
   return function*(next) {
     const error = check(this, scope);
     if (error) {
-      return renderBearerTokenError(context, error);
+      return renderBearerTokenError(this, error);
     }
 
     yield next;

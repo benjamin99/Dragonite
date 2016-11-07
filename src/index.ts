@@ -147,6 +147,11 @@ app.use(function*(next) {
 
 app.use(requestLogger);
 app.use(bodyParser());
+
+if (config.useOAuth) {
+  app.use(oauth.checkToken());
+}
+
 app.use(mount(`/v${config.version}`, router.routes()));
 app.on('error', function (error, context) {
   console.error('server error: ', error, context);
