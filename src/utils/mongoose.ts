@@ -1,6 +1,7 @@
 import * as _mongoose from 'mongoose';
+import * as _autoIncrement from 'mongoose-auto-increment';
 import * as Promise from 'bluebird';
-import {config} from '../config';
+import { config } from '../config';
 
 const MONGODB_URI = config.mongodb;
 
@@ -15,5 +16,8 @@ database.once('open', () => {
   console.log('connected to the database');
 });
 
+_autoIncrement.initialize(_mongoose.connection);
+
 export const mongoose = _mongoose;
 export const Schema = _mongoose.Schema;
+export const autoIncrement = _autoIncrement;

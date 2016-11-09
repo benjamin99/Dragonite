@@ -3,7 +3,7 @@ import { render } from '../common/render';
 import { memberDefaultScopes } from '../common/scope';
 
 function addTokenHeaders(contex: any, token: string) {
-  // TODO: get the proper headers from the oken:
+  // TODO: get the proper headers from the token:
   contex.request.headers['x-token-id'] = token ? '123123' : undefined;
   contex.request.headers['x-token-memeber'] = token ? '1' : undefined;
   contex.request.headers['x-token-scope'] = token ? memberDefaultScopes.join(' ') : undefined;

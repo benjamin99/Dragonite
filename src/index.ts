@@ -11,6 +11,7 @@ import * as replies from './routes/replies';
 import * as scope from './common/scope';
 import { config } from './config';
 import { refresh } from './utils/dbRefresh';
+import { middleware as errorMiddleware } from './common/error';
 import { getDeviceById } from './middlewares/getDeviceById';
 import { getEventById }  from './middlewares/getEventById';
 import { getMemberById } from './middlewares/getMemberById';
@@ -69,8 +70,12 @@ router.get('/devices/:id',
   devices.show);
 
 // members
+
 router.get('/members',
   members.list);
+
+router.post('/members',
+  members.create);
 
 router.get('/members/:id',
   getMemberById(),
@@ -81,6 +86,7 @@ router.put('/members/:id',
   members.update);
 
 // events
+
 router.get('/events', 
   scope.middleware(scope.eventBasicScope),
   events.list);
@@ -152,6 +158,7 @@ if (config.useOAuth) {
   app.use(oauth.checkToken());
 }
 
+app.use(errorMiddleware());
 app.use(mount(`/v${config.version}`, router.routes()));
 app.on('error', function (error, context) {
   console.error('server error: ', error, context);

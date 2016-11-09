@@ -7,6 +7,7 @@ export const ERROR_CODE = {
   forbidden: 1002,
 
   // 11xx: Validation error
+  required: 1100,
 
   // 12xx: Resource error
   memberNotFound: 1200,
@@ -64,3 +65,30 @@ export function renderBearerTokenError(context: any, data: IBearerTokenErrorData
   context.set('WWW-Authenticate', headers.join(', '));
   render(context, data.status, body);
 };
+
+/** Error Hnadlers */
+
+function handleJoiValidationError(context: any, error: any) {
+  return render(context, 400, {
+    error: ERROR_CODE.required,
+    message: error.message
+  });
+}
+
+export function middleware(options?: any) {
+  return function*(next) {
+    try {
+      yield next;
+    } catch (error) {
+      
+      if (error.name === 'ValidationError') {
+        return handleJoiValidationError(this, error);
+      }
+
+      return render(this, 500, {
+        error: ERROR_CODE.unknown,
+        message: error.message || 'unknown error'
+      });
+    }
+  };
+}

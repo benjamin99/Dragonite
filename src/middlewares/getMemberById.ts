@@ -1,34 +1,22 @@
+import * as validator from 'validator';
+import { render } from '../common/render';
 import { Member } from '../models/Members';
-import { ERROR_CODE, OAUTH_ERROR_CODE, renderBearerTokenError } from '../common/error';
+import { ERROR_CODE } from '../common/error';
 
 export function getMemberById(options?: any) {
   return function*(next) {
+    const memberId = this.params.id;
+    let member;
 
-    if (!this.get('x-token-id')) {
-      return renderBearerTokenError(this, {
-        status: 401,
-        error: OAUTH_ERROR_CODE.invalidClient,
-        description: 'Token is required'
-      });
+    if (validator.isInt(memberId, {min: 0})) {
+      member = this.state.member = yield Member.findOne({ _id: +memberId });
     }
 
-    if (!this.get('x-token-member')) {
-      return renderBearerTokenError(this, {
-        status: 403,
-        error: OAUTH_ERROR_CODE.invalidToken,
-        description: 'Token is not for member'
-      });
-    }
-
-    const member = this.state.member = yield Member.findOne({ _id: +this.get('x-token-member') });
     if (!member) {
-      this.status = 404;
-      this.type = 'json';
-      this.body = {
+      return render(this, 404, {
         error: ERROR_CODE.memberNotFound,
-        message: 'cannot found the member with the requested memberId'
-      };
-      return;
+        messsage: 'Cannot found the member with the specified id'
+      });
     }
 
     yield next;
