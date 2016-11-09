@@ -9,6 +9,7 @@ const TS_DEFINITIONS = './release/definitions';
 const TS_RESULT_DEST = './release/js';
 const TS_SOURCE = './src/**/*.ts';
 const FIXTURES = './src/**/fixtures/**/*.json';
+const MOCKUPS = './src/**/examples/**/*.json';
 
 /** The task for tslint */
 
@@ -41,10 +42,15 @@ gulp.task('fixtures', function() {
   gulp.src(FIXTURES).pipe(gulp.dest(TS_RESULT_DEST));
 });
 
+gulp.task('mockups', function() {
+  gulp.src(MOCKUPS).pipe(gulp.dest(TS_RESULT_DEST));
+});
+
 // Setup the watch event:
 
 gulp.task('watch', function() {
   // setup the typescript task:
   gulp.watch(TS_SOURCE, ['scripts']);
   gulp.watch(FIXTURES, ['fixtures']);
+  gulp.watch(MOCKUPS, ['mockups']);
 });

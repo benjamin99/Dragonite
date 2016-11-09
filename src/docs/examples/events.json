@@ -1,0 +1,44 @@
+{
+  "endpoints": [
+    {
+      "path": "/v2/events",
+      "method": "get",
+      "status": 200,
+      "response": {
+        "content": [
+          {
+            "id": "123123",
+            "title": "event 001",
+            "content": "this is the first event",
+            "imageUrl": "http://e0.365dm.com/16/09/16-9/20/premier-league-football-arsenal-celebrating-theo-walcott_3793516.jpg?20160924190828",
+            "channelId": "az000",
+            "created": "",
+            "replies": [],
+            "ohCount": 0,
+            "hottestReplies": []
+          },
+          {
+
+          }
+        ],
+        "count": 2
+      }
+    },
+    {
+      "path": "/v2/events/:id",
+      "method": "get",
+      "status": 200,
+      "response": {
+
+      }
+    },
+    {
+      "path": "/v2/events",
+      "method": "post",
+      "status": 200,
+      "response": {
+        
+      }
+    }
+  ]
+}
