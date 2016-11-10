@@ -13,7 +13,7 @@ export interface Endpoint {
   path: string;
   method: string;
   status: number;
-  reponse: string;
+  response: string;
 }
 
 const globAsync: (path: string) => any = Promise.promisify(glob);

@@ -16,6 +16,7 @@
     "@types/mongoose": "^4.5.39",
     "@types/mongoose-auto-increment": "^5.0.29",
     "@types/node": "^6.0.46",
+    "@types/path-to-regexp": "^1.0.29",
     "@types/uuid": "^2.0.29",
     "@types/validator": "^5.7.34",
     "apn": "^1.7.8",
@@ -31,6 +32,7 @@
     "mongodb": "^2.2.6",
     "mongoose": "^4.6.5",
     "mongoose-auto-increment": "^5.0.1",
+    "path-to-regexp": "^1.7.0",
     "uuid": "^2.0.3",
     "validator": "^6.1.0"
   },

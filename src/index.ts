@@ -9,6 +9,7 @@ import * as members from './routes/members';
 import * as reactions from './routes/reactions';
 import * as replies from './routes/replies';
 import * as scope from './common/scope';
+import { Sandbox } from './routes/sandbox';
 import { config } from './config';
 import { refresh } from './utils/dbRefresh';
 import { middleware as errorMiddleware } from './common/error';
@@ -21,6 +22,8 @@ import * as oauth from './oauth';
 /* consts */
 
 const LOG_REQUESTS = config.log;
+
+const sandbox = new Sandbox('sandbox');
 
 /* setup the default views */
 
@@ -159,6 +162,7 @@ if (config.useOAuth) {
 }
 
 app.use(errorMiddleware());
+app.use(sandbox.middleware());
 app.use(mount(`/v${config.version}`, router.routes()));
 app.on('error', function (error, context) {
   console.error('server error: ', error, context);
