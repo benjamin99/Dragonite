@@ -1,3 +1,14 @@
 {
-  
+  "endpoints": [
+    {
+      "path": "/v1/oauth/token",
+      "method": "post",
+      "status": 200,
+      "response": {
+        "access_token": "97TFZLuISHaNxkF/lhwBhg==",
+        "token_type": "Bearer",
+        "scope": "event event:write reaction reaction:write reply reply:write"
+      }
+    }
+  ]
 }
