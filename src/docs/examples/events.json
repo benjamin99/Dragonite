@@ -1,43 +1,74 @@
 {
   "endpoints": [
     {
-      "path": "/v2/events",
+      "path": "/v1/events",
       "method": "get",
       "status": 200,
-      "response": {
-        "content": [
+      "response": [
           {
             "id": "123123",
             "title": "event 001",
+            "latitude": 25.04329205803085,
+            "longitude": 121.557121003213, 
             "content": "this is the first event",
             "imageUrl": "http://e0.365dm.com/16/09/16-9/20/premier-league-football-arsenal-celebrating-theo-walcott_3793516.jpg?20160924190828",
-            "channelId": "az000",
-            "created": "",
-            "replies": [],
-            "ohCount": 0,
-            "hottestReplies": []
+            "channelId": "a0000",
+            "created": 1478881973.209,
+            "duration": 300,
+            "end": 1478882273.209,
+            "hottestReplies": [],
+            "ohCount": 20
           },
           {
-
+            "id": "123124",
+            "title": "event 002",
+            "latitude": 25.04479594803085,
+            "longitude": 121.559557913213, 
+            "content": "this is the second event",
+            "imageUrl": "http://i4.mirror.co.uk/incoming/article7226781.ece/ALTERNATES/s615b/The-Arsenal-team-wearing-the-2004-2005-Arsenal-home-kit.jpg",
+            "channelId": "a0000",
+            "created": 1478881973.209,
+            "duration": 300,
+            "end": 1478882273.209,
+            "hottestReplies": [],
+            "ohCount": 100
           }
-        ],
-        "count": 2
-      }
+      ]
     },
     {
-      "path": "/v2/events/:id",
+      "path": "/v1/events/:id",
       "method": "get",
       "status": 200,
       "response": {
-        "success": true
+        "id": "123123",
+        "title": "event 001",
+        "content": "this is the first event",
+        "imageUrl": "http://e0.365dm.com/16/09/16-9/20/premier-league-football-arsenal-celebrating-theo-walcott_3793516.jpg?20160924190828",
+        "channelId": "a0000",
+        "created": 1478881973.209,
+        "duration": 300,
+        "end": 1478882273.209,
+        "hottestReplies": [],
+        "ohCount": 20
       }
     },
     {
-      "path": "/v2/events",
+      "path": "/v1/events",
       "method": "post",
-      "status": 200,
+      "status": 201,
       "response": {
-        
+        "id": "123125",
+        "title": "event 003",
+        "latitude": 25.04479594803200,
+        "longitude": 121.559557914213, 
+        "content": "this is the third event",
+        "imageUrl": "http://ichef.bbci.co.uk/onesport/cps/624/cpsprodpb/DCC6/production/_89281565_ozil_sanchez_rex.jpg",
+        "channelId": "a0000",
+        "created": 1478881973.209,
+        "duration": 300,
+        "end": 1478882273.209,
+        "hottestReplies": [],
+        "ohCount": 100
       }
     }
   ]
