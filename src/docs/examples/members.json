@@ -1,3 +1,58 @@
 {
-  
+  "endpoints": [
+    {
+      "path": "/v1/members/:id",
+      "method": "get",
+      "status": 200,
+      "response": {
+        "id": 0,
+        "username": "Alice",
+        "scopes": [
+          "event", 
+          "event:write",
+          "reaction",
+          "reaction:write",
+          "reply",
+          "reply:write"
+        ],
+        "created": "2016-11-07T17:53:29.282Z"
+      }
+    },
+    {
+      "path": "/v1/members/:id",
+      "method": "put",
+      "status": 200,
+      "response": {
+        "id": 0,
+        "username": "Alice",
+        "scopes": [
+          "event", 
+          "event:write",
+          "reaction",
+          "reaction:write",
+          "reply",
+          "reply:write"
+        ],
+        "created": "2016-11-07T17:53:29.282Z"
+      }
+    },
+    {
+      "path": "/v1/members",
+      "method": "post",
+      "status": 200,
+      "response": {
+        "id": 0,
+        "username": "Bob",
+        "scopes": [
+          "event", 
+          "event:write",
+          "reaction",
+          "reaction:write",
+          "reply",
+          "reply:write"
+        ],
+        "created": "2016-11-07T17:53:29.282Z"
+      }
+    } 
+  ]
 }

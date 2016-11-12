@@ -1,0 +1,53 @@
+{
+  "endpoints": [
+    {
+      "path": "/v1/devices/:id",
+      "method": "get",
+      "status": 200,
+      "response": {
+        "id": "5826f3fd0e48d004006fdd2f",
+        "deviceModel": "iPhone7,2&&&4553843537E1FBA61E7EFC2AAC93947081532FCC3B38269A8F7229C7F0A40D38",
+        "token": "4553843537E1FBA61E7EFC2AAC93947081532FCC3B38269A8F7229C7F0A40D38",
+        "os": "ios",
+        "osVersion": "9.2",
+        "appVersion": "alpha",
+        "latitude": 25.04329205803085,
+        "longitude": 121.557121003213,
+        "created": "2016-11-07T17:53:29.282Z",
+        "updated": "2016-11-10T17:53:29.282Z"
+      }
+    },
+    {
+      "path": "/v1/devices/:id",
+      "method": "post",
+      "status": 201,
+      "response": {
+        "id": "5826f3fd0e48d004006fdd2f",
+        "deviceModel": "iPhone7,2&&&4553843537E1FBA61E7EFC2AAC93947081532FCC3B38269A8F7229C7F0A40D38",
+        "token": "4553843537E1FBA61E7EFC2AAC93947081532FCC3B38269A8F7229C7F0A40D38",
+        "os": "ios",
+        "osVersion": "9.2",
+        "appVersion": "alpha",
+        "latitude": 25.04329205803085,
+        "longitude": 121.557121003213,
+        "created": "2016-11-07T17:53:29.282Z"
+      }
+    },
+    {
+      "path": "/v1/devices/:id",
+      "method": "put",
+      "status": 200,
+      "response": {
+        "id": "5826f3fd0e48d004006fdd2f",
+        "deviceModel": "iPhone7,2&&&4553843537E1FBA61E7EFC2AAC93947081532FCC3B38269A8F7229C7F0A40D38",
+        "token": "4553843537E1FBA61E7EFC2AAC93947081532FCC3B38269A8F7229C7F0A40D38",
+        "os": "ios",
+        "osVersion": "9.2",
+        "appVersion": "alpha",
+        "latitude": 25.04329205803185,
+        "longitude": 121.557121003313,
+        "created": "2016-11-07T17:53:29.282Z"
+      }
+    }
+  ]
+}
