@@ -14,10 +14,10 @@ const eventListSchema = joi.object().keys({
 
 const joiValidate: (value: any, schema: joi.Schema) => void = Promise.promisify(joi.validate);
 
-function normalizedEventInfo(e: EventDocument) {
+function formatEvent(e: EventDocument) {
   return {
     id: e._id,
-    created: e.created.getTime() / 1000,
+    created: e.created,
     duration: e.duration,
     end: e.end,
     title: e.title,
@@ -44,7 +44,9 @@ export function *create(): any {
 
   this.type = 'json';
   this.status = 201;
-  this.body = normalizedEventInfo(event);
+  this.body = formatEvent(event);
+
+  console.log(event.created);
 };
 
 export function *list(): any {
@@ -83,7 +85,7 @@ export function *list(): any {
   this.type = 'json';
   this.status = 200;
   this.body = {
-    content: _.map(events, normalizedEventInfo),
+    content: _.map(events, formatEvent),
     count: events.length
   };
 };
@@ -92,7 +94,7 @@ export function *show() {
   const event = this.state.event;
   this.type = 'json';
   this.status = 200;
-  this.body  = normalizedEventInfo(event);
+  this.body  = formatEvent(event);
 }
 
 export function *makeConfirm() {
@@ -101,5 +103,5 @@ export function *makeConfirm() {
   yield event.save();
   this.type = 'json';
   this.status = 200;
-  this.body  = normalizedEventInfo(event);
+  this.body  = formatEvent(event);
 };

@@ -13,9 +13,9 @@
             "content": "this is the first event",
             "imageUrl": "http://e0.365dm.com/16/09/16-9/20/premier-league-football-arsenal-celebrating-theo-walcott_3793516.jpg?20160924190828",
             "channelId": "a0000",
-            "created": 1478881973.209,
+            "created": "2016-11-12T13:51:10.696Z",
             "duration": 300,
-            "end": 1478882273.209,
+            "end": "2016-11-12T13:56:10.696Z",
             "hottestReplies": [],
             "ohCount": 20
           },
@@ -27,9 +27,9 @@
             "content": "this is the second event",
             "imageUrl": "http://i4.mirror.co.uk/incoming/article7226781.ece/ALTERNATES/s615b/The-Arsenal-team-wearing-the-2004-2005-Arsenal-home-kit.jpg",
             "channelId": "a0000",
-            "created": 1478881973.209,
+            "created": "2016-11-12T15:00:10.696Z",
             "duration": 300,
-            "end": 1478882273.209,
+            "end": "2016-11-12T15:05:10.696Z",
             "hottestReplies": [],
             "ohCount": 100
           }
@@ -45,9 +45,9 @@
         "content": "this is the first event",
         "imageUrl": "http://e0.365dm.com/16/09/16-9/20/premier-league-football-arsenal-celebrating-theo-walcott_3793516.jpg?20160924190828",
         "channelId": "a0000",
-        "created": 1478881973.209,
+        "created": "2016-11-12T13:51:10.696Z",
         "duration": 300,
-        "end": 1478882273.209,
+        "end": "2016-11-12T13:56:10.696Z",
         "hottestReplies": [],
         "ohCount": 20
       }
@@ -64,9 +64,9 @@
         "content": "this is the third event",
         "imageUrl": "http://ichef.bbci.co.uk/onesport/cps/624/cpsprodpb/DCC6/production/_89281565_ozil_sanchez_rex.jpg",
         "channelId": "a0000",
-        "created": 1478881973.209,
+        "created": "2016-11-12T15:20:10.696Z",
         "duration": 300,
-        "end": 1478882273.209,
+        "end": "2016-11-12T15:25:10.696Z",
         "hottestReplies": [],
         "ohCount": 100
       }
