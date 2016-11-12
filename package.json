@@ -60,7 +60,9 @@
   "description": "The backend implementation for the dragonite project",
   "main": "release/js/index.js",
   "scripts": {
-    "test": "NODE_ENV=development mocha -r co-mocha release/js/tests/index.js"
+    "test": "NODE_ENV=development mocha -r co-mocha release/js/tests/index.js",
+    "setup": "gulp scripts; gulp mockups; gulp fixtures;",
+    "start": "NODE_ENV=development node release/js/index.js"
   },
   "keywords": [
     "dragonite",
