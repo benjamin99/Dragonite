@@ -23,7 +23,8 @@ const eventSchema = new Schema({
 });
 
 eventSchema.virtual('end').get(function() {
-  return this.created.getTime() / 1000 + this.duration + deltaTimeWithConforms(this.confirms);
+  const timestamp = this.created.getTime() + (this.duration + deltaTimeWithConforms(this.confirms)) * 1000;
+  return new Date(timestamp);
 });
 
 eventSchema.virtual('longitude').get(function() {

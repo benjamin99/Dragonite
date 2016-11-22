@@ -45,13 +45,11 @@ export function *create(): any {
   this.type = 'json';
   this.status = 201;
   this.body = formatEvent(event);
-
-  console.log(event.created);
 };
 
 export function *list(): any {
 
-  let form = undefined;
+  let form;
   try {
     form = yield joiValidate(this.query, eventListSchema);
   } catch (error) {
@@ -61,19 +59,17 @@ export function *list(): any {
     return;
   }
 
-  let events; 
+  let events;
+  const center = [form.longitude, form.latitude];
+  const range = (form.range ? form.range : (form.all ? null : DEFAULT_RANGE)) / 100;
   
-  if (form.range) {
-
-    const center = [form.longitude, form.latitude];
-    const range = (form.range || DEFAULT_RANGE) / 100;
+  if (range) {
     events = yield Event.find({
       location: {
         $nearSphere: center,
         $maxDistance: range
       }
     }).limit(100).exec();
-
   } else {
     events = yield Event.find({}).limit(100).exec();
   }
@@ -84,10 +80,7 @@ export function *list(): any {
 
   this.type = 'json';
   this.status = 200;
-  this.body = {
-    content: _.map(events, formatEvent),
-    count: events.length
-  };
+  this.body = _.map(events, formatEvent);
 };
 
 export function *show() {
